@@ -1,24 +1,25 @@
 import { Component } from "react";
+import FormInput from '../form-input.component/form-input.component'
+import CustomButton from '../custome-button/custome-button.component.jsx'
 import './sign-in.styles.scss'
 
 class SignIn extends Component {
     constructor(props) {
         super(props);
-        this.submitHandler = this.submitHandler.bind(this);
-        this.changeHandler = this.changeHandler.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.state = { 
             email:'',
             password:''
          }
     }
     
-    submitHandler = (event)=> {
-        event.preventDefault();
-        this.setState({email:'',password:''});
-     }
+  handleSubmit(event) {
+      event.preventDefault();
+  }  
 
-   changeHandler = (event) => {
-      const {name, value} = event.target;
+   handleChange(event) {
+      const {value, name} = event.target;
       this.setState({[name]:value})
   }
     render() { 
@@ -27,12 +28,13 @@ class SignIn extends Component {
             <h2>I already have an Account</h2>
             <span>Sign In with your email and password</span>
             
-            <form onSubmit={this.submitHandler}>
-                <label>Email</label>
-                <input type='email' name='email' value={this.state.email}  required onChange={this.changeHandler} />
-                <label>Password</label>
-                <input type='password' name='password' value={this.state.password}  required onChange={this.changeHandler} />
-                <input type='submit' value='Submit form'>Sign In</input>
+            <form onSubmit={this.handleSubmit}>
+                
+                <FormInput type='email' name='email' value={this.state.email}  required handleChange={this.handleChange} label="email"/>
+               
+                <FormInput type='password' name='password' value={this.state.password}  required handleChange={this.handleChange} label="password"/>
+    
+               <CustomButton type='submit'>Sign In</CustomButton>
             </form>
         </div> );
     }
